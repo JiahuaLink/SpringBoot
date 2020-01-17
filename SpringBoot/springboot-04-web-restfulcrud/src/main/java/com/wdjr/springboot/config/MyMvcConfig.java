@@ -19,7 +19,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
     //所有的webMvcConfigurerAdapter组件会一起起作用
     @Bean //註冊到容器去
     public WebMvcConfigurerAdapter webMvcConfigurerAdapter(){
-        WebMvcConfigurerAdapter adapter = new WebMvcConfigurerAdapter() {
+        return new WebMvcConfigurerAdapter() {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("login");
@@ -30,11 +30,10 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 //静态资源 css js 已经做好了静态资源映射
-//                registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").
-//                        excludePathPatterns("/index.html","/","/user/login");
+                registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").
+                        excludePathPatterns("/index.html","/","/user/login");
             }
         };
-        return adapter;
     }
 
     @Bean

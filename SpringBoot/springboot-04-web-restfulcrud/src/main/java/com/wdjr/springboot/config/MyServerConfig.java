@@ -19,8 +19,8 @@ public class MyServerConfig {
     //注册三大组件
     @Bean
     public ServletRegistrationBean myServlet(){
-        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new MyServlet(),"/myServlet");
-        return servletRegistrationBean;
+        return new ServletRegistrationBean(new MyServlet(),"/myServlet");
+
     }
 
     @Bean
@@ -33,8 +33,8 @@ public class MyServerConfig {
 
     @Bean
     public ServletListenerRegistrationBean myListener(){
-        ServletListenerRegistrationBean<MyListener> registrationBean = new ServletListenerRegistrationBean<>(new MyListener());
-        return registrationBean;
+        return new ServletListenerRegistrationBean<>(new MyListener());
+
     }
 
     //配置嵌入式Servlet容器
@@ -44,7 +44,7 @@ public class MyServerConfig {
             //定制嵌入式Servlet的容器相关规则
             @Override
             public void customize(ConfigurableEmbeddedServletContainer container) {
-                container.setPort(8999);
+                container.setPort(8080);
             }
         };
     }
