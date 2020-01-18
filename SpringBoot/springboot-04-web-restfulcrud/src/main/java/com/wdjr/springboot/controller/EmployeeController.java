@@ -1,7 +1,9 @@
 package com.wdjr.springboot.controller;
 
+import com.wdjr.springboot.dao.CompanyDao;
 import com.wdjr.springboot.dao.DepartmentDao;
 import com.wdjr.springboot.dao.EmployeeDao;
+import com.wdjr.springboot.entities.Company;
 import com.wdjr.springboot.entities.Department;
 import com.wdjr.springboot.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class EmployeeController {
 
     @Autowired
     DepartmentDao departmentDao;
+
+    @Autowired
+    CompanyDao companyDao;
     /**
      * 查询所有员工返回列表页面
      */
@@ -26,7 +31,9 @@ public class EmployeeController {
     public String list(Model model){
 
         Collection<Employee> employees = employeeDao.getAll();
+
         model.addAttribute("emps",employees);
+        System.out.println(employees+"*******************");
         return "emp/list";
     }
     /**
@@ -36,7 +43,9 @@ public class EmployeeController {
     public String toAddPage(Model model){
         //来到添加页面,查出所有部门显示
         Collection<Department> depts = departmentDao.getDepartments();
+        Collection<Company> companies = companyDao.getCompanies();
         model.addAttribute("depts",depts);
+        model.addAttribute("companies",companies);
         return "emp/add";
     }
     /**
@@ -57,8 +66,10 @@ public class EmployeeController {
     public String toEditPage(@PathVariable("id") Integer id ,Model model){
         Employee emp = employeeDao.getEmpById(id);
         Collection<Department> departments = departmentDao.getDepartments();
+        Collection<Company> companies = companyDao.getCompanies();
         model.addAttribute("emp",emp);
         model.addAttribute("depts",departments);
+        model.addAttribute("companies",companies);
         return "emp/add";
     }
 

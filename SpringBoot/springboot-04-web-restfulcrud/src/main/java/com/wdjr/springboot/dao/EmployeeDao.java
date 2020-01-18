@@ -1,5 +1,6 @@
 package com.wdjr.springboot.dao;
 
+import com.wdjr.springboot.entities.Company;
 import com.wdjr.springboot.entities.Department;
 import com.wdjr.springboot.entities.Employee;
 import org.omg.CORBA.PRIVATE_MEMBER;
@@ -20,15 +21,18 @@ public class EmployeeDao {
     @Autowired
     private DepartmentDao departmentDao;
 
+    @Autowired
+    private CompanyDao companyDao;
 
+    //默认
     static {
 
         employees = new HashMap<Integer, Employee>();
-        employees.put(1001,new Employee(1001, "E-AA", "aa@163.com", 1, new Department(101, "D-AA"), new Date()));
-        employees.put(1002,new Employee(1002, "E-BB", "bb@163.com", 1, new Department(102, "D-BB"), new Date()));
-        employees.put(1003,new Employee(1003, "E-CC", "cc@163.com", 0, new Department(103, "D-CC"), new Date()));
-        employees.put(1004,new Employee(1004, "E-DD", "dd@163.com", 0, new Department(104, "D-DD"), new Date()));
-        employees.put(1005,new Employee(1005, "E-EE", "ee@163.com", 1, new Department(105, "D-EE"), new Date()));
+        employees.put(1001,new Employee(1001, "E-AA", "aa@163.com", 1, new Company(101,"C-AA"), new Department(101, "D-AA"), new Date()));
+        employees.put(1002,new Employee(1002, "E-BB", "bb@163.com", 1,new Company(101,"C-AA"), new Department(102, "D-BB"), new Date()));
+        employees.put(1003,new Employee(1003, "E-CC", "cc@163.com", 0, new Company(102,"C-BB"),new Department(103, "D-CC"), new Date()));
+        employees.put(1004,new Employee(1004, "E-DD", "dd@163.com", 0, new Company(102,"C-BB"),new Department(104, "D-DD"), new Date()));
+        employees.put(1005,new Employee(1005, "E-EE", "ee@163.com", 1, new Company(102,"C-BB"),new Department(105, "D-EE"), new Date()));
     }
     private static Integer initId= 1006;
 
@@ -37,7 +41,11 @@ public class EmployeeDao {
             employee.setId(initId++);
         }
         employee.setDepartment(departmentDao.getDepartment(employee.getDepartment().getId()));
+//        System.out.println(departmentDao.getDepartment(employee.getDepartment().getId())+"#################department###############################");
+        employee.setCompany(companyDao.getCompany(employee.getCompany().getId()));
+//        System.out.println(companyDao.getCompany(employee.getCompany().getId())+"#################Company###############################");
         employees.put(employee.getId(), employee);
+        System.out.println(employees);
     }
     //查询所有员工
     public Collection<Employee> getAll(){return employees.values();}

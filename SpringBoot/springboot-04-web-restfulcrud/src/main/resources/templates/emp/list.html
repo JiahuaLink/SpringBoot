@@ -39,6 +39,7 @@
                         <th>lastName</th>
                         <th>email</th>
                         <th>gender</th>
+                        <th>company</th>
                         <th>department</th>
                         <th>birth</th>
                         <th>操作</th>
@@ -50,6 +51,7 @@
                             <td th:text="${emp.lastName}">1</td>
                             <td th:text="${emp.email}">1</td>
                             <td th:text="${emp.gender}">1</td>
+                            <td th:text="${emp.company.companyName}">1</td>
                             <td th:text="${emp.department.departmentName}">1</td>
                             <td th:text="${#dates.format(emp.birth,'yyyy-MM-dd HH:mm:ss')}">1</td>
                             <td>

@@ -4,23 +4,25 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Employee {
-
     private Integer id;
     private String lastName;
     private String email;
     private Integer gender;
     private Department department;
+    private Company company;
     private Date birth;
 
     public Employee() {
     }
 
-    public Employee(Integer id, String lastName, String email, Integer gender, Department department, Date birth) {
+
+    public Employee(Integer id, String lastName, String email, Integer gender, Company company, Department department, Date birth) {
         this.id = id;
         this.lastName = lastName;
         this.email = email;
         this.gender = gender;
         this.department = department;
+        this.company = company;
         this.birth = birth;
     }
 
@@ -64,6 +66,12 @@ public class Employee {
         this.department = department;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+    public void setCompany(Company company) {
+        this.company = company;
+    }
     public Date getBirth() {
         return birth;
     }
@@ -80,6 +88,7 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", gender=" + gender +
                 ", birth=" + birth +
+
                 '}';
     }
 }
